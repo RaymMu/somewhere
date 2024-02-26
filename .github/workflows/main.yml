@@ -3,23 +3,36 @@ on: [push, pull_request]
 
 jobs:
 
-  build-windows:
-    runs-on: windows-latest
+  run-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+          os: [windows-latest] # likely windows-latest is enough
+          python-version:  # library combinations can be written here too!
+            - "3.9"
+            - "3.10"
+            - "3.11-dev"
+
+    name: Testing
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: [3.8, 3.9, 3.10, 3.11]
-    - name: Install dependencies
-      run: |
-        C:\Miniconda\condabin\conda.bat env update --file environment.yml --name base
-        C:\Miniconda\condabin\conda.bat init powershell
+      - name: Checkout code
+        uses: actions/checkout@v3  # internal action to checkout the code
 
-    - name: Test with pytest
-      run: |
-        # Activate the base environment
-        C:\Miniconda\condabin\conda.bat activate base
-        C:\Miniconda\condabin\conda.bat install pytest
-        pytest tests/test_exchangeengine.py
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          C:\Miniconda\condabin\conda.bat env update --file environment.yml --name base
+          C:\Miniconda\condabin\conda.bat init powershell
+
+      - name: Test with pytest
+        run: |
+          # Activate the base environment
+          C:\Miniconda\condabin\conda.bat activate base
+          C:\Miniconda\condabin\conda.bat install pytest
+          pytest tests/test_exchangeengine.py

@@ -1,0 +1,16 @@
+# folders
+.idea/
+.venv/
+.sample_files/
+__pycache__/
+.pytest_cache/
+
+# files
+*.csv
+*.pyc
+*.log
+sample.ipynb
+
+# running related files
+Asset CF Summary for IRR_20231231_v2_Call.xlsx
+Bloomberg FX Fwd Curve.xlsx

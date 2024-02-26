@@ -1,16 +1,16 @@
 import pytest
 import pandas as pd
-from exchange_engine.exchange_engine import ExchangeEngine
-from exchange_engine.exchange_getter import ExchangeGetter
+from exchange_engine import ExchangeEngine
+from exchange_getter import ExchangeGetter
 
 
 def test_exchange_engine():
     # read test_data.csv
-    true_currency_df = pd.read_csv('test_data/true_exchange_rate.csv')
+    true_currency_df = pd.read_csv('tests/test_data/true_exchange_rate.csv')
 
     # run exchange engine
     currency_exchange_list = ['USDCAD', 'GBPCAD', 'EURCAD']
-    file_path = r"test_data/2024_Bloomberg FX Fwd Curve.xlsx"
+    file_path = r'tests/test_data/2024_Bloomberg FX Fwd Curve.xlsx'
     start_month = 1
     start_year = 2024
 

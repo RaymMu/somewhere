@@ -12,7 +12,6 @@ class ExchangeEngine:
         self.start_year = start_year
         self.year_range = 100
         self.exchange_df = None
-
     def load_mega_exchange_rate(self, exchange_rate_df) -> None:
         self.exchange_df = exchange_rate_df
 
